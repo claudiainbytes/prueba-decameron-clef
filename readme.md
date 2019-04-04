@@ -46,3 +46,47 @@ Remover el punto y coma para activar extensión.
 - Nombre de base de datos: prueba-decameron-clef
 - Nombre de usuario de acceso a gestor: postgres
 - Contraseña de acceso a gestor: root
+
+### Modelo y diseño de base de datos 
+
+PK = Primary Key
+FK = Foreign Key
+
+#### Entidad: Ciudad / Tabla: Ciudades
+```html
+- id [PK] (integer, bigIncrements)
+- ciudad (string, unique)
+```
+
+#### Entidad: TipoAcomodacion / Tabla: TiposAcomodacion
+```html
+- id [PK] (integer, bigIncrements)
+- tipo (string, unique)
+```
+
+#### Entidad: TipoHabitacion / Tabla: TiposHabitacion
+```html
+- id [PK] (integer, bigIncrements)
+- tipo (string, unique)
+```
+
+#### Entidad: Hotel / Tabla: Hoteles
+```html
+- id [PK] (integer, bigIncrements)
+- nombre (string, unique)
+- ciudad_id [FK] (References: Ciudad) (integer, unsigned)
+- nit (string)
+- direccion (string)
+- total_habitaciones (integer)
+- foto (string)
+```
+
+#### Entidad: HabitacionesPorHotel / Tabla: HabitacionesPorHoteles
+```html
+- id [PK] (integer, bigIncrements)
+- hotel_id [FK] (integer) (References: Hotel) (integer, unsigned, unique) (Actions: OnDelete(Cascade))
+- tipo_habitacion_id [FK] (References: TiposHabitacion) (integer, unsigned, unique)
+- tipo_acomodacion_id [FK] (References: TiposAcomodacion) (integer, unsigned, unique)
+- total_habitaciones (integer)
+```
+
